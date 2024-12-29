@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  480-web:
+    container_name: 480-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 250:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - 480-be
+    networks:
+      - 480-network
+
+  480-be:
+    container_name: 480-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
+      PHP_XDEBUG_ENABLED: 1
+    volumes:
+      - ./:/appdata/www
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - 480-db
+    networks:
+      - 480-network
+
+  480-db:
+    container_name: 480-db
+    build:
+      context: ./docker/database
+    ports:
+      - 36000:3306
+    environment:
+      MYSQL_DATABASE: 480_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
+    volumes:
+      - 480-db-data:/var/lib/mysql
+    networks:
+      - 480-network
+
+volumes:
+  480-db-data:
+
+networks:
+  480-network:
+    external: true
