@@ -1,4 +1,4 @@
 api_v1_auth:
-  resource: ../src/Auth/Infrastructure/Controller/
+  resource: ../src/Api/Auth/Infrastructure/Controller/
   type: attribute
   prefix: /api/v1/auth
