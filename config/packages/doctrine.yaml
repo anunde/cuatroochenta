@@ -1,6 +1,8 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        types:
+            user_id: App\Api\Auth\Infrastructure\Persistence\Doctrine\UserIdType
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -16,7 +18,13 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-        
+            Auth:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Api/Auth/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Api\Auth\Domain\Entity'
+                alias: Auth
+
 when@test:
     doctrine:
         dbal:
