@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Domain\Repository;
+namespace Anunde\Api\User\Domain\Repository;
 
-use App\Api\User\Domain\Entity\User;
+use Anunde\Api\User\Domain\Entity\User;
 
 interface IUserRepository
 {

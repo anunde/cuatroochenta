@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Shared\Infrastructure\Persistence\Doctrine;
+namespace Anunde\Shared\Infrastructure\Persistence\Doctrine;
 
-use App\Shared\Domain\Entity\Entity;
+use Anunde\Shared\Domain\Entity\Entity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

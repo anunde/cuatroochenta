@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Infrastructure\Service;
+namespace Anunde\Shared\Infrastructure\Service;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

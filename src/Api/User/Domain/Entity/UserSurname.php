@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Domain\Entity;
+namespace Anunde\Api\User\Domain\Entity;
 
-use App\Shared\Domain\ValueObject\StringValueObject;
+use Anunde\Shared\Domain\ValueObject\StringValueObject;
 
 final class UserSurname extends StringValueObject
 {

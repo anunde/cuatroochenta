@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Infrastructure\Service;
+namespace Anunde\Api\User\Infrastructure\Service;
 
-use App\Api\User\Domain\Service\IPasswordEncoder;
+use Anunde\Api\User\Domain\Service\IPasswordEncoder;
 
 final class PasswordEncoderService implements IPasswordEncoder
 {

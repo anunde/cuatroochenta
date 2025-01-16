@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Infrastructure\Doctrine\Dbal;
+namespace Anunde\Shared\Infrastructure\Doctrine\Dbal;
 
 interface DoctrineCustomType
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\User\Domain\Exception;
+namespace Anunde\Api\User\Domain\Exception;
 
 class UserUnauthorizedException extends \Exception
 {

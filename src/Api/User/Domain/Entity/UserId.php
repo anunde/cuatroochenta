@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Domain\Entity;
+namespace Anunde\Api\User\Domain\Entity;
 
-use App\Shared\Domain\ValueObject\Uuid;
+use Anunde\Shared\Domain\ValueObject\Uuid;
 
 final class UserId extends Uuid
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Infrastructure\Service;
+namespace Anunde\Api\User\Infrastructure\Service;
 
-use App\Api\User\Domain\Service\IJWTEncoderService;
+use Anunde\Api\User\Domain\Service\IJWTEncoderService;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 
 readonly class JWTEncoderService implements IJWTEncoderService

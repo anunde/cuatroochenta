@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api\User\Infrastructure\Persistence;
+namespace Anunde\Api\User\Infrastructure\Persistence;
 
-use App\Api\User\Domain\Entity\User;
-use App\Api\User\Domain\Repository\IUserRepository;
-use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use Anunde\Api\User\Domain\Entity\User;
+use Anunde\Api\User\Domain\Repository\IUserRepository;
+use Anunde\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrineUserRepository extends DoctrineRepository implements IUserRepository
 {

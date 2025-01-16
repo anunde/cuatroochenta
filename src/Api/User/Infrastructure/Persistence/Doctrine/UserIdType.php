@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Api\User\Infrastructure\Persistence\Doctrine;
+namespace Anunde\Api\User\Infrastructure\Persistence\Doctrine;
 
-use App\Api\User\Domain\Entity\UserId;
-use App\Shared\Infrastructure\Persistence\Doctrine\UuidType;
+use Anunde\Api\User\Domain\Entity\UserId;
+use Anunde\Shared\Infrastructure\Persistence\Doctrine\UuidType;
 
 final class UserIdType extends UuidType
 {

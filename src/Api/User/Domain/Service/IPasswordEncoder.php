@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\User\Domain\Service;
+namespace Anunde\Api\User\Domain\Service;
 
 interface IPasswordEncoder
 {

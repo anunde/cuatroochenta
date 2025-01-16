@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true      
+        autoconfigure: true 
+
+    Anunde\Shared\:
+        resource: '../../../src/Shared'
+
+    Anunde\Api\:
+        resource: '../../../src/Api'
+
+    Anunde\Apps\Api\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']

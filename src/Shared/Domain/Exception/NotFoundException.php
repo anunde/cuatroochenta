@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Domain\Exception;
+namespace Anunde\Shared\Domain\Exception;
 
 class NotFoundException extends \Exception
 {

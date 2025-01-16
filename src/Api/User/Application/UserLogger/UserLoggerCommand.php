@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\User\Application\UserLogger;
+namespace Anunde\Api\User\Application\UserLogger;
 
 readonly class UserLoggerCommand
 {

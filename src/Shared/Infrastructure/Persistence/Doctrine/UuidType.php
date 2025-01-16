@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Shared\Infrastructure\Persistence\Doctrine;
+namespace Anunde\Shared\Infrastructure\Persistence\Doctrine;
 
-use App\Shared\Infrastructure\Doctrine\Dbal\DoctrineCustomType;
+use Anunde\Shared\Infrastructure\Doctrine\Dbal\DoctrineCustomType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 

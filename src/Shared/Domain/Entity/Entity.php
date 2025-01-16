@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Domain\Entity;
+namespace Anunde\Shared\Domain\Entity;
 
 abstract class Entity
 {

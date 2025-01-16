@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Domain\Entity;
+namespace Anunde\Api\User\Domain\Entity;
 
-use App\Shared\Domain\ValueObject\EmailValueObject;
+use Anunde\Shared\Domain\ValueObject\EmailValueObject;
 
 final class UserEmail extends EmailValueObject
 {

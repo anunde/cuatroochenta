@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Api\User\Application\UserLogger;
+namespace Anunde\Api\User\Application\UserLogger;
 
-use App\Api\User\Domain\Exception\UserUnauthorizedException;
-use App\Api\User\Domain\Repository\IUserRepository;
-use App\Api\User\Domain\Service\IJWTEncoderService;
-use App\Api\User\Domain\Service\IPasswordEncoder;
-use App\Shared\Domain\Exception\NotFoundException;
+use Anunde\Api\User\Domain\Exception\UserUnauthorizedException;
+use Anunde\Api\User\Domain\Repository\IUserRepository;
+use Anunde\Api\User\Domain\Service\IJWTEncoderService;
+use Anunde\Api\User\Domain\Service\IPasswordEncoder;
+use Anunde\Shared\Domain\Exception\NotFoundException;
 
 final class UserLoggerCommandHandler
 {

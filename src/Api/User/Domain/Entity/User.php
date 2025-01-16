@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\User\Domain\Entity;
+namespace Anunde\Api\User\Domain\Entity;
 
-use App\Shared\Domain\Entity\Entity;
+use Anunde\Shared\Domain\Entity\Entity;
 
 final class User extends Entity
 {
