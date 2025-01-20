@@ -1,0 +1,4 @@
+health-check-get:
+  path: /api/v1/health-check
+  controller: Anunde\Apps\Api\Controller\HealthCheck\HealthCheckGetController
+  methods: [GET]
