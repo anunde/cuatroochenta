@@ -73,6 +73,10 @@
         }
     },
     "require-dev": {
+        "behat/behat": "*",
+        "behat/mink-browserkit-driver": "*",
+        "friends-of-behat/mink-extension": "*",
+        "friends-of-behat/symfony-extension": "*",
         "phpunit/phpunit": "*"
     }
 }
