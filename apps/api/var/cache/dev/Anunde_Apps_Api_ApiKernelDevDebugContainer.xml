@@ -253,6 +253,9 @@
       <argument type="service" id="lexik_jwt_authentication.encoder.lcobucci"/>
     </service>
     <service id="Anunde\Api\User\Infrastructure\Service\PasswordEncoderService" class="Anunde\Api\User\Infrastructure\Service\PasswordEncoderService" autowire="true" autoconfigure="true"/>
+    <service id="Anunde\Apps\Api\Controller\HealthCheck\HealthCheckGetController" class="Anunde\Apps\Api\Controller\HealthCheck\HealthCheckGetController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="Anunde\Apps\Api\Controller\LoginController" class="Anunde\Apps\Api\Controller\LoginController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -476,23 +479,13 @@
       <argument type="service" id="service_container"/>
       <argument type="service" id=".service_locator.XXv1IfR"/>
     </service>
-    <service id="locale_aware_listener" class="Symfony\Component\HttpKernel\EventListener\LocaleAwareListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <tag name="container.hot_path"/>
-      <argument type="iterator">
-        <argument type="service" id="slugger"/>
-      </argument>
-      <argument type="service" id="request_stack"/>
-    </service>
     <service id="container.env_var_processor" class="Symfony\Component\DependencyInjection\EnvVarProcessor">
       <tag name="container.env_var_processor"/>
       <argument type="service" id="service_container"/>
       <argument type="tagged_iterator" tag="container.env_var_loader"/>
     </service>
-    <service id="slugger" class="Symfony\Component\String\Slugger\AsciiSlugger">
-      <tag name="kernel.locale_aware"/>
-      <argument>en</argument>
+    <service id="slugger" class="Symfony\Component\String\Slugger\SluggerInterface">
+      <tag name="container.error" message="You cannot use the &quot;slugger&quot; service since the Translation contracts are not installed. Try running &quot;composer require symfony/translation&quot;."/>
     </service>
     <service id="container.getenv" class="Closure">
       <tag name="routing.expression_language_function" function="env"/>
@@ -810,6 +803,16 @@
       </call>
       <call method="setDescription">
         <argument>Help debug routes by simulating a path info match</argument>
+      </call>
+    </service>
+    <service id="console.command.xliff_lint" class="Symfony\Component\Translation\Command\XliffLintCommand">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <call method="setName">
+        <argument>lint:xliff</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Lint an XLIFF file and outputs encountered errors</argument>
       </call>
     </service>
     <service id="console.command.yaml_lint" class="Symfony\Bundle\FrameworkBundle\Command\YamlLintCommand">
@@ -1297,22 +1300,6 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>-10</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="locale_aware_listener"/>
-          <argument>onKernelRequest</argument>
-        </argument>
-        <argument>15</argument>
-      </call>
-      <call method="addListener">
-        <argument>kernel.finish_request</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="locale_aware_listener"/>
-          <argument>onKernelFinishRequest</argument>
-        </argument>
-        <argument>-15</argument>
       </call>
       <call method="addListener">
         <argument>console.error</argument>
@@ -4069,6 +4056,7 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>Anunde\Apps\Api\ApiKernel</argument>
+          <argument>Anunde\Apps\Api\Controller\HealthCheck\HealthCheckGetController</argument>
           <argument>Anunde\Apps\Api\Controller\LoginController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -4244,6 +4232,13 @@
       <argument>Help debug routes by simulating a path info match</argument>
       <argument>false</argument>
       <argument type="service_closure" id="console.command.router_match"/>
+    </service>
+    <service id=".console.command.xliff_lint.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lint:xliff</argument>
+      <argument type="collection"/>
+      <argument>Lint an XLIFF file and outputs encountered errors</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="console.command.xliff_lint"/>
     </service>
     <service id=".console.command.yaml_lint.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>lint:yaml</argument>
@@ -4450,7 +4445,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.zjLVgKd"/>
+      <argument type="service" id=".service_locator.s_Xn690"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -4470,6 +4465,7 @@
         <argument key="debug:event-dispatcher">console.command.event_dispatcher_debug</argument>
         <argument key="debug:router">console.command.router_debug</argument>
         <argument key="router:match">console.command.router_match</argument>
+        <argument key="lint:xliff">console.command.xliff_lint</argument>
         <argument key="lint:yaml">console.command.yaml_lint</argument>
         <argument key="secrets:set">console.command.secrets_set</argument>
         <argument key="secrets:remove">console.command.secrets_remove</argument>
@@ -4518,7 +4514,7 @@
         <argument key="lint:twig">twig.command.lint</argument>
       </argument>
     </service>
-    <service id=".service_locator.zjLVgKd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.s_Xn690" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -4539,6 +4535,7 @@
         <argument key="console.command.event_dispatcher_debug" type="service_closure" id=".console.command.event_dispatcher_debug.lazy"/>
         <argument key="console.command.router_debug" type="service_closure" id=".console.command.router_debug.lazy"/>
         <argument key="console.command.router_match" type="service_closure" id=".console.command.router_match.lazy"/>
+        <argument key="console.command.xliff_lint" type="service_closure" id=".console.command.xliff_lint.lazy"/>
         <argument key="console.command.yaml_lint" type="service_closure" id=".console.command.yaml_lint.lazy"/>
         <argument key="console.command.secrets_set" type="service_closure" id=".console.command.secrets_set.lazy"/>
         <argument key="console.command.secrets_remove" type="service_closure" id=".console.command.secrets_remove.lazy"/>

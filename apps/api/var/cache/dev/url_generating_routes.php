@@ -4,6 +4,7 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'health-check-get' => [[], ['_controller' => 'Anunde\\Apps\\Api\\Controller\\HealthCheck\\HealthCheckGetController'], [], [['text', '/api/v1/health-check']], [], [], []],
     'app.swagger' => [[], ['_controller' => 'nelmio_api_doc.controller.swagger'], [], [['text', '/api/doc.json']], [], [], []],
     'app.swagger_ui' => [[], ['_controller' => 'nelmio_api_doc.controller.swagger_ui'], [], [['text', '/api/doc']], [], [], []],
     'user_login' => [[], ['_controller' => 'Anunde\\Apps\\Api\\Controller\\LoginController'], [], [['text', '/api/v1/auth/login']], [], [], []],

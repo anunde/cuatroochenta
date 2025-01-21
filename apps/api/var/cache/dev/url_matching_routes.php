@@ -8,6 +8,7 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/api/v1/health-check' => [[['_route' => 'health-check-get', '_controller' => 'Anunde\\Apps\\Api\\Controller\\HealthCheck\\HealthCheckGetController'], null, ['GET' => 0], null, false, false, null]],
         '/api/doc.json' => [[['_route' => 'app.swagger', '_controller' => 'nelmio_api_doc.controller.swagger'], null, ['GET' => 0], null, false, false, null]],
         '/api/doc' => [[['_route' => 'app.swagger_ui', '_controller' => 'nelmio_api_doc.controller.swagger_ui'], null, ['GET' => 0], null, false, false, null]],
         '/api/v1/auth/login' => [[['_route' => 'user_login', '_controller' => 'Anunde\\Apps\\Api\\Controller\\LoginController'], null, ['POST' => 0], null, false, false, null]],

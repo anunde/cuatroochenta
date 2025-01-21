@@ -1,0 +1,17 @@
+api:
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      kernel:
+        class: Anunde\Apps\Api\ApiKernel
+      bootstrap: apps/bootstrap.php
+    Behat\MinkExtension:
+      sessions:
+        symfony:
+          symfony: ~
+      base_url: ''
+
+  suites:
+    health_check:
+      paths: [ apps/api/tests/features/health_check ]
+      contexts:
+        - Anunde\Tests\Shared\Infrastructure\Behat\ApiContext

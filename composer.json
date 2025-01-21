@@ -39,7 +39,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Anunde\\Tests\\": "tests/"
         }
     },
     "replace": {
