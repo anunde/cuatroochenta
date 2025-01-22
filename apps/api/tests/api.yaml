@@ -15,3 +15,8 @@ api:
       paths: [ apps/api/tests/features/health_check ]
       contexts:
         - Anunde\Tests\Shared\Infrastructure\Behat\ApiContext
+    
+    auth:
+      paths: [ apps/api/tests/features/auth ]
+      contexts:
+        - Anunde\Tests\Shared\Infrastructure\Behat\ApiContext

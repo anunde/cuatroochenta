@@ -1,0 +1,4 @@
+login-post:
+  path: /api/v1/auth/login
+  controller: Anunde\Apps\Api\Controller\Auth\LoginPostController
+  methods: [POST]
