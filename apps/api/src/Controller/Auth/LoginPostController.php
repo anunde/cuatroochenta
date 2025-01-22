@@ -26,7 +26,7 @@ class LoginPostController extends AbstractController
 
             return new JsonResponse(["token" => $token], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            dd($th); //TODO: Añadir Fixtures
+             //TODO: Añadir Fixtures
             return new JsonResponse([
                 'status' => false,
                 'error' => $th->getMessage()
