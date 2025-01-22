@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="tests/bootstrap.php">
+         bootstrap="apps/bootstrap.php">
 
     <php>
         <ini name="display_errors" value="1" />
