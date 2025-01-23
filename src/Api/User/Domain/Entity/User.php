@@ -33,7 +33,13 @@ final class User extends Entity
         UserEmail $email,
         UserPassword $password
     ): self {
-        return new self($id, $name, $surname, $email, $password);
+        return new self(
+            $id, 
+            $name, 
+            $surname, 
+            $email, 
+            $password
+        );
     }
 
     public function getEmail(): UserEmail
