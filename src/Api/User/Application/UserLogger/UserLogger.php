@@ -8,7 +8,7 @@ use Anunde\Api\User\Domain\Service\IJWTEncoderService;
 use Anunde\Api\User\Domain\Service\IPasswordEncoder;
 use Anunde\Shared\Domain\Exception\NotFoundException;
 
-final class UserLoggerCommandHandler
+final class UserLogger
 {
     public function __construct(
       private IUserRepository $repository,
@@ -16,7 +16,7 @@ final class UserLoggerCommandHandler
       private IPasswordEncoder $passwordEnconder
     ) {}
 
-    public function __invoke(UserLoggerCommand $command): string
+    public function __invoke(UserLoggerRequest $command): string
     {
       if(null === $user = $this->repository->findUserByEmail($command->getEmail())) {
         throw new NotFoundException('User not found');

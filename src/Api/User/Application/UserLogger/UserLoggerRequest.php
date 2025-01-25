@@ -2,7 +2,7 @@
 
 namespace Anunde\Api\User\Application\UserLogger;
 
-readonly class UserLoggerCommand
+readonly class UserLoggerRequest
 {
     private string $email;
     private string $password;
