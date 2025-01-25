@@ -14,11 +14,13 @@ use Anunde\Api\User\Domain\Repository\IUserRepository;
 use Anunde\Api\User\Domain\Service\IJWTEncoderService;
 use Anunde\Api\User\Domain\Service\IPasswordEncoder;
 use Anunde\Shared\Domain\ValueObject\Uuid;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class UserLoggerCommandHandlerTest extends TestCase 
 {
-    public function testSuccessLogin(): void
+    #[Test]
+    public function it_should_generate_a_jwt_token(): void
     {
         $repository = $this->createMock(IUserRepository::class);
         $passEndcoder = $this->createMock(IPasswordEncoder::class);
