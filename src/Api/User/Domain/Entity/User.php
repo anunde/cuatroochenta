@@ -6,25 +6,14 @@ use Anunde\Shared\Domain\Aggregate\AggregateRoot;
 
 final class User extends AggregateRoot
 {
-    private readonly UserId $id;
-    private UserName $name;
-    private UserSurname $surname;
-    private UserEmail $email;
-    private UserPassword $password;   
-    
+
     public function __construct(
-        UserId $id,
-        UserName $name,
-        UserSurname $surname,
-        UserEmail $email,
-        UserPassword $password        
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->email = $email;
-        $this->password = $password;
-    }
+        private readonly UserId $id,
+        private UserName $name,
+        private UserSurname $surname,
+        private UserEmail $email,
+        private UserPassword $password        
+    ) {}
 
     public static function create(
         UserId $id,
@@ -32,7 +21,8 @@ final class User extends AggregateRoot
         UserSurname $surname,
         UserEmail $email,
         UserPassword $password
-    ): self {
+    ): self 
+    {
         return new self(
             $id, 
             $name, 
