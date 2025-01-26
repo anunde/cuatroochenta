@@ -1,0 +1,15 @@
+services:
+  # Databases
+  Doctrine\ORM\EntityManager:
+    factory: [ Anunde\Api\Shared\Infrastructure\Doctrine\ApiEntityManagerFactory, create ]
+    arguments:
+      - driver: '%env(API_DATABASE_DRIVER)%'
+        host: '%env(API_DATABASE_HOST)%'
+        port: '%env(API_DATABASE_PORT)%'
+        dbname: '%env(API_DATABASE_NAME)%'
+        user: '%env(API_DATABASE_USER)%'
+        password: '%env(API_DATABASE_PASSWORD)%'
+      - '%env(APP_ENV)%'
+    tags:
+      - { name: anunde.database_connection }
+    public: true

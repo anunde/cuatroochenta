@@ -2,7 +2,7 @@
 
 namespace Anunde\Api\User\Domain\Repository;
 
-use Anunde\Api\User\Domain\Entity\User;
+use Anunde\Api\User\Domain\User;
 
 interface IUserRepository
 {   

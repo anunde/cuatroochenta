@@ -2,7 +2,7 @@
 
 namespace Tests\Api\User\Infrastructure\Persistence;
 
-use Anunde\Api\User\Domain\Entity\User;
+use Anunde\Api\User\Domain\User;
 use Anunde\Api\User\Domain\Entity\UserEmail;
 use Anunde\Api\User\Domain\Entity\UserId;
 use Anunde\Api\User\Domain\Entity\UserName;

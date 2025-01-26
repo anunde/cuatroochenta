@@ -1,3 +1,6 @@
+imports:
+  - { resource: ../../../src/Api/Shared/Infrastructure/Symfony/DependencyInjection/api_services.yaml }
+
 services:
     _defaults:
         autowire: true      

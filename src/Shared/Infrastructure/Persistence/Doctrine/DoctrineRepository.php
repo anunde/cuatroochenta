@@ -3,16 +3,16 @@
 namespace Anunde\Shared\Infrastructure\Persistence\Doctrine;
 
 use Anunde\Shared\Domain\Aggregate\AggregateRoot;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 abstract class DoctrineRepository
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManager $entityManager)
     {
     }
 
-    public function entityManager(): EntityManagerInterface
+    public function entityManager(): EntityManager
     {
         return $this->entityManager;
     }

@@ -4,12 +4,12 @@ namespace Tests\Api\User\Application;
 
 use Anunde\Api\User\Application\UserLogger\UserLogger;
 use Anunde\Api\User\Application\UserLogger\UserLoggerRequest;
-use Anunde\Api\User\Domain\Entity\User;
-use Anunde\Api\User\Domain\Entity\UserEmail;
-use Anunde\Api\User\Domain\Entity\UserId;
-use Anunde\Api\User\Domain\Entity\UserName;
-use Anunde\Api\User\Domain\Entity\UserPassword;
-use Anunde\Api\User\Domain\Entity\UserSurname;
+use Anunde\Api\User\Domain\User;
+use Anunde\Api\User\Domain\UserEmail;
+use Anunde\Api\User\Domain\UserId;
+use Anunde\Api\User\Domain\UserName;
+use Anunde\Api\User\Domain\UserPassword;
+use Anunde\Api\User\Domain\UserSurname;
 use Anunde\Api\User\Domain\Repository\IUserRepository;
 use Anunde\Api\User\Domain\Service\IJWTEncoderService;
 use Anunde\Api\User\Domain\Service\IPasswordEncoder;

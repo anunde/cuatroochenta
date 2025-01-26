@@ -2,7 +2,7 @@
 
 namespace Anunde\Api\User\Infrastructure\Persistence;
 
-use Anunde\Api\User\Domain\Entity\User;
+use Anunde\Api\User\Domain\User;
 use Anunde\Api\User\Domain\Repository\IUserRepository;
 use Anunde\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
