@@ -2,9 +2,9 @@
 
 namespace Anunde\Api\User\Domain\Entity;
 
-use Anunde\Shared\Domain\Entity\Entity;
+use Anunde\Shared\Domain\Aggregate\AggregateRoot;
 
-final class User extends Entity
+final class User extends AggregateRoot
 {
     private readonly UserId $id;
     private UserName $name;
