@@ -2,7 +2,7 @@
 
 namespace Anunde\Shared\Infrastructure\Persistence\Doctrine;
 
-use Anunde\Shared\Domain\Entity\Entity;
+use Anunde\Shared\Domain\Aggregate\AggregateRoot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -17,7 +17,7 @@ abstract class DoctrineRepository
         return $this->entityManager;
     }
 
-    public function persist(Entity $entity, bool $flush = false): void
+    public function persist(AggregateRoot $entity, bool $flush = false): void
     {
         $this->entityManager()->persist($entity);
 
@@ -26,7 +26,7 @@ abstract class DoctrineRepository
         }
     }
 
-    public function remove(Entity $entity, bool $flush = false): void
+    public function remove(AggregateRoot $entity, bool $flush = false): void
     {
         $this->entityManager()->remove($entity);
         
