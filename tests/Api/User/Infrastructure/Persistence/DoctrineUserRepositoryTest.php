@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api\User\Infrastructure\Persistence;
+namespace Anunde\Tests\Api\User\Infrastructure\Persistence;
 
 use Anunde\Api\User\Domain\User;
 use Anunde\Api\User\Domain\Entity\UserEmail;

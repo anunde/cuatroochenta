@@ -10,4 +10,4 @@ services:
     resource: '../../../tests'
 
   # Instance selector
-  Anunde\Api\User\Domain\Service\IJWTEncoder: '@Anunde\Tests\Api\User\Infrastructure\Service\ConstantJWTEncoderService'
+  Anunde\Api\User\Domain\Service\IJWTEncoderService: '@Anunde\Tests\Api\User\Infrastructure\Service\ConstantJWTEncoderService'

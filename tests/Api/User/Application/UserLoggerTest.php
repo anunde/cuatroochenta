@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Api\User\Application;
+namespace Anunde\Tests\Api\User\Application;
 
 use Anunde\Api\User\Application\UserLogger\UserLogger;
 use Anunde\Api\User\Domain\Exception\UserUnauthorizedException;
@@ -50,12 +50,13 @@ final class UserLoggerTest extends UserModuleUnitTestCase
     #[Test]
     public function it_should_throw_an_exception_when_user_not_exist(): void
     {
+        $this->expectException(NotFoundException::class);
+
         $email = UserEmailMother::create();
         $password = UserPasswordMother::create();
         $request = UserLoggerRequestMother::create($email, $password);
         
         $this->shouldSearch($email->value(), null);
-        $this->expectException(NotFoundException::class);
 
         $this->handler->__invoke($request);
     }
@@ -63,8 +64,9 @@ final class UserLoggerTest extends UserModuleUnitTestCase
     #[Test]
     public function it_should_throw_an_exception_when_user_not_authorized(): void
     {
-        $email = UserEmailMother::create();
+        $this->expectException(UserUnauthorizedException::class);
 
+        $email = UserEmailMother::create();
         $user = UserMother::create(
             null,
             null,
@@ -72,13 +74,10 @@ final class UserLoggerTest extends UserModuleUnitTestCase
             $email,
             null
         );
-
         $request = UserLoggerRequestMother::create($email);
         
         $this->shouldSearch($email->value(), $user);
         $this->shouldBeInvalidPassword($request->getPassword(), $user->getPassword()->value());
-
-        $this->expectException(UserUnauthorizedException::class);
 
         $this->handler->__invoke($request);
     }

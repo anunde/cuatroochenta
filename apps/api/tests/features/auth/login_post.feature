@@ -15,6 +15,6 @@ Feature: Login user
     Then the response content should be:
     """
     {
-      "token": "jtw-token"
+      "token":"jwt-token"
     }
     """
