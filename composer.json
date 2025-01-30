@@ -79,6 +79,7 @@
         "fakerphp/faker": "*",
         "friends-of-behat/mink-extension": "*",
         "friends-of-behat/symfony-extension": "*",
+        "mockery/mockery": "*",
         "phpunit/phpunit": "*"
     }
 }

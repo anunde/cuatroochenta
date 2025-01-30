@@ -3,25 +3,29 @@
 namespace Tests\Api\User\Application;
 
 use Anunde\Api\User\Application\UserLogger\UserLogger;
-use Anunde\Api\User\Domain\Repository\IUserRepository;
-use Anunde\Api\User\Domain\Service\IJWTEncoderService;
-use Anunde\Api\User\Domain\Service\IPasswordEncoder;
+use Anunde\Api\User\Domain\Exception\UserUnauthorizedException;
+use Anunde\Shared\Domain\Exception\NotFoundException;
 use Anunde\Tests\Api\User\Application\UserLoggerRequestMother;
 use Anunde\Tests\Api\User\Domain\UserEmailMother;
 use Anunde\Tests\Api\User\Domain\UserMother;
 use Anunde\Tests\Api\User\Domain\UserPasswordMother;
+use Anunde\Tests\Api\User\UserModuleUnitTestCase;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
 
-final class UserLoggerTest extends TestCase 
+final class UserLoggerTest extends UserModuleUnitTestCase 
 {
+    private UserLogger | null $handler;
+
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$this->handler = new UserLogger($this->repository(), $this->jwtEncoder(), $this->passwordEncoder());
+	}
+
     #[Test]
     public function it_should_generate_a_jwt_token(): void
     {
-        $repository = $this->createMock(IUserRepository::class);
-        $passEndcoder = $this->createMock(IPasswordEncoder::class);
-        $jwtEncoder = $this->createMock(IJWTEncoderService::class);
-
         $email = UserEmailMother::create();
         $password = UserPasswordMother::create();
 
@@ -33,14 +37,49 @@ final class UserLoggerTest extends TestCase
             $password
         );
 
-        $handler = new UserLogger($repository, $jwtEncoder, $passEndcoder);
         $request = UserLoggerRequestMother::create($email, $password);
         
-        $repository->method('findUserByEmail')->with($request->getEmail())->willReturn($user);
-        $passEndcoder->method('isValid')->with($request->getPassword(), $user->getPassword()->value())->willReturn(true);
-        $jwtEncoder->method('encode')->willReturn('jwt-token');
+        $this->shouldSearch($email->value(), $user);
+        $this->shouldBeValidPassword($request->getPassword(), $user->getPassword()->value());
+        $this->shouldCreateJwtToken();
 
-        $token = $handler->__invoke($request);
+        $token = $this->handler->__invoke($request);
         $this->assertEquals('jwt-token', $token);
+    }
+
+    #[Test]
+    public function it_should_throw_an_exception_when_user_not_exist(): void
+    {
+        $email = UserEmailMother::create();
+        $password = UserPasswordMother::create();
+        $request = UserLoggerRequestMother::create($email, $password);
+        
+        $this->shouldSearch($email->value(), null);
+        $this->expectException(NotFoundException::class);
+
+        $this->handler->__invoke($request);
+    }
+
+    #[Test]
+    public function it_should_throw_an_exception_when_user_not_authorized(): void
+    {
+        $email = UserEmailMother::create();
+
+        $user = UserMother::create(
+            null,
+            null,
+            null,
+            $email,
+            null
+        );
+
+        $request = UserLoggerRequestMother::create($email);
+        
+        $this->shouldSearch($email->value(), $user);
+        $this->shouldBeInvalidPassword($request->getPassword(), $user->getPassword()->value());
+
+        $this->expectException(UserUnauthorizedException::class);
+
+        $this->handler->__invoke($request);
     }
 }
