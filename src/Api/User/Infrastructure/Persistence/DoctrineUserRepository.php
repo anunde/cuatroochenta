@@ -4,6 +4,7 @@ namespace Anunde\Api\User\Infrastructure\Persistence;
 
 use Anunde\Api\User\Domain\User;
 use Anunde\Api\User\Domain\Repository\IUserRepository;
+use Anunde\Api\User\Domain\UserEmail;
 use Anunde\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrineUserRepository extends DoctrineRepository implements IUserRepository
@@ -13,8 +14,8 @@ final class DoctrineUserRepository extends DoctrineRepository implements IUserRe
         $this->persist($user, true);
     }
 
-    public function findUserByEmail(string $email): ?User
+    public function findUserByEmail(UserEmail $email): ?User
     {
-        return $this->repository(User::class)->findOneBy(['email.value' => $email]);
+        return $this->repository(User::class)->findOneBy(['email.value' => $email->value()]);
     }
 }

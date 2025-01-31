@@ -39,7 +39,7 @@ final class UserLoggerTest extends UserModuleUnitTestCase
 
         $request = UserLoggerRequestMother::create($email, $password);
         
-        $this->shouldSearch($email->value(), $user);
+        $this->shouldSearch($email, $user);
         $this->shouldBeValidPassword($request->getPassword(), $user->getPassword()->value());
         $this->shouldCreateJwtToken();
 
@@ -56,7 +56,7 @@ final class UserLoggerTest extends UserModuleUnitTestCase
         $password = UserPasswordMother::create();
         $request = UserLoggerRequestMother::create($email, $password);
         
-        $this->shouldSearch($email->value(), null);
+        $this->shouldSearch($email, null);
 
         $this->handler->__invoke($request);
     }
@@ -76,7 +76,7 @@ final class UserLoggerTest extends UserModuleUnitTestCase
         );
         $request = UserLoggerRequestMother::create($email);
         
-        $this->shouldSearch($email->value(), $user);
+        $this->shouldSearch($email, $user);
         $this->shouldBeInvalidPassword($request->getPassword(), $user->getPassword()->value());
 
         $this->handler->__invoke($request);

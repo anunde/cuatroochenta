@@ -16,7 +16,7 @@ final class DoctrineUserRepositoryTest extends UserModuleInfrastructureTestCase
 
         $this->repository()->save($user);
 
-        $this->assertNotNull($this->repository()->findUserByEmail($user->getEmail()->value()));
+        $this->assertNotNull($this->repository()->findUserByEmail($user->getEmail()));
     }
 
     #[Test]
@@ -26,12 +26,12 @@ final class DoctrineUserRepositoryTest extends UserModuleInfrastructureTestCase
 
         $this->repository()->save($user);
 
-        $this->assertEquals($user, $this->repository()->findUserByEmail($user->getEmail()->value()));
+        $this->assertEquals($user, $this->repository()->findUserByEmail($user->getEmail()));
     }
 
     #[Test]
     public function it_should_not_return_a_non_existing_user(): void
     {
-        $this->assertNull($this->repository()->findUserByEmail(UserEmailMother::create()->value()));
+        $this->assertNull($this->repository()->findUserByEmail(UserEmailMother::create()));
     }
 }

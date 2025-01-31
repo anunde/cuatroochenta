@@ -6,6 +6,7 @@ use Anunde\Api\User\Domain\Exception\UserUnauthorizedException;
 use Anunde\Api\User\Domain\Repository\IUserRepository;
 use Anunde\Api\User\Domain\Service\IJWTEncoderService;
 use Anunde\Api\User\Domain\Service\IPasswordEncoder;
+use Anunde\Api\User\Domain\UserEmail;
 use Anunde\Shared\Domain\Exception\NotFoundException;
 
 final class UserLogger
@@ -18,7 +19,7 @@ final class UserLogger
 
   public function __invoke(UserLoggerRequest $command): string
   {
-    if (null === $user = $this->repository->findUserByEmail($command->getEmail())) {
+    if (null === $user = $this->repository->findUserByEmail(new UserEmail($command->getEmail()))) {
       throw new NotFoundException('User not found');
     }
 

@@ -16,7 +16,7 @@ abstract class UserModuleUnitTestCase extends UnitTestCase
     private IPasswordEncoder | MockInterface | null $passwordEncoder;
     private IJWTEncoderService | MockInterface | null $jwtEncoder;
 
-    protected function shouldSearch(string $email, ?User $user): void
+    protected function shouldSearch(UserEmail $email, ?User $user): void
     {
         $this->repository()
             ->shouldReceive('findUserByEmail')
