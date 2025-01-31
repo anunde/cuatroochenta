@@ -2,36 +2,36 @@
 
 namespace Anunde\Tests\Api\User\Infrastructure\Persistence;
 
-use Anunde\Api\User\Domain\User;
-use Anunde\Api\User\Domain\Entity\UserEmail;
-use Anunde\Api\User\Domain\Entity\UserId;
-use Anunde\Api\User\Domain\Entity\UserName;
-use Anunde\Api\User\Domain\Entity\UserPassword;
-use Anunde\Api\User\Domain\Entity\UserSurname;
-use Anunde\Api\User\Infrastructure\Persistence\DoctrineUserRepository;
-use Anunde\Shared\Domain\ValueObject\Uuid;
-use Doctrine\ORM\EntityManager;
-use PHPUnit\Framework\TestCase;
+use Anunde\Tests\Api\User\Domain\UserEmailMother;
+use Anunde\Tests\Api\User\Domain\UserMother;
+use Anunde\Tests\Api\User\UserModuleInfrastructureTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
-final class DoctrineUserRepositoryTest extends TestCase
+final class DoctrineUserRepositoryTest extends UserModuleInfrastructureTestCase
 {
-    public function testFindUserByEmail(): void 
+    #[Test]
+    public function it_should_save_a_user(): void
     {
-        /*$repository = new DoctrineUserRepository($this->service(EntityManager::class));
+        $user = UserMother::create();
 
-        $id = Uuid::random();
-        $name = "user";
-        $surname = "user";
-        $email = "user@user.com";
-        $password = "password";
+        $this->repository()->save($user);
 
-        $user = User::create(new UserId($id), new UserName($name), new UserSurname($surname), new UserEmail($email), new UserPassword($password));
-        
-        $repository->save($user);
+        $this->assertNotNull($this->repository()->findUserByEmail($user->getEmail()->value()));
+    }
 
-        $foundUser = $repository->findUserByEmail($email);
+    #[Test]
+    public function it_should_return_an_existing_user(): void 
+    {
+        $user = UserMother::create();
 
-        $this->assertEquals($user, $foundUser);*/
-        $this->assertTrue(true);
+        $this->repository()->save($user);
+
+        $this->assertEquals($user, $this->repository()->findUserByEmail($user->getEmail()->value()));
+    }
+
+    #[Test]
+    public function it_should_not_return_a_non_existing_user(): void
+    {
+        $this->assertNull($this->repository()->findUserByEmail(UserEmailMother::create()->value()));
     }
 }
