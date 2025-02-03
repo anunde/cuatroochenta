@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginPostController extends AbstractController
+final class LoginPostController extends AbstractController
 {
     public function __construct(
        private UserLogger $handler

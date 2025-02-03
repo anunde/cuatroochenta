@@ -1,0 +1,4 @@
+sensor-post:
+  path: /api/v1/sensor
+  controller: Anunde\Apps\Api\Controller\Sensor\SensorPostController
+  methods: [POST]
