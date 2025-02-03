@@ -10,6 +10,7 @@ use Anunde\Tests\Shared\Infrastructure\PhpUnit\Comparator\DateTimeSimilarCompara
 use Anunde\Tests\Shared\Infrastructure\PhpUnit\Comparator\DateTimeStringSimilarComparator;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Util\Exporter;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory;
 
@@ -65,7 +66,7 @@ final class AnundeConstraintIsSimilar extends Constraint
 		if ($this->delta !== 0) {
 			$delta = sprintf(' with delta <%F>', $this->delta);
 		}
-
-		return sprintf('is equal to %s%s', $this->exporter()->export($this->value), $delta);
+		
+		return sprintf('is equal to %s%s', Exporter::export($this->value), $delta);
 	}
 }

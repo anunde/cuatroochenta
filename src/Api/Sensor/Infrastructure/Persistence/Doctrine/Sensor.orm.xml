@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Anunde\Api\Sensor\Domain\Sensor" table="sensors">
+        <id name="id" type="sensor_id" column="id" length="36"></id>
+        <embedded name="name" class="Anunde\Api\Sensor\Domain\SensorName" use-column-prefix="false" />
+    </entity>
+</doctrine-mapping>

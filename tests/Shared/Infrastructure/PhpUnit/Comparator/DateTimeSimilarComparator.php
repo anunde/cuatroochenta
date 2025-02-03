@@ -37,7 +37,6 @@ final class DateTimeSimilarComparator extends ObjectComparator
 				$actual,
 				$this->dateTimeToString($expected),
 				$this->dateTimeToString($actual),
-				false,
 				'Failed asserting that two DateTime objects are equal.'
 			);
 		}

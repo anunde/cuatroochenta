@@ -6,6 +6,7 @@ namespace Anunde\Tests\Shared\Infrastructure\PhpUnit\Comparator;
 
 use Anunde\Shared\Domain\Aggregate\AggregateRoot;
 use Anunde\Tests\Shared\Domain\TestUtils;
+use PHPUnit\Util\Exporter;
 use SebastianBergmann\Comparator\Comparator;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
@@ -29,9 +30,8 @@ final class AggregateRootArraySimilarComparator extends Comparator
 			throw new ComparisonFailure(
 				$expected,
 				$actual,
-				$this->exporter->export($expected),
-				$this->exporter->export($actual),
-				false,
+				Exporter::export($expected),
+				Exporter::export($actual),
 				'Failed asserting the collection of AGs contains all the expected elements.'
 			);
 		}
