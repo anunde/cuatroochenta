@@ -20,3 +20,8 @@ api:
       paths: [ apps/api/tests/features/auth ]
       contexts:
         - Anunde\Tests\Shared\Infrastructure\Behat\ApiContext
+    
+    sensor:
+      paths: [ apps/api/tests/features/sensor ]
+      contexts:
+        - Anunde\Tests\Shared\Infrastructure\Behat\ApiContext

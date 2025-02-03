@@ -6,6 +6,14 @@ services:
     autoconfigure: true
     autowire: true
 
+  Doctrine\ORM\EntityManagerInterface:
+    alias: Doctrine\ORM\EntityManager
+    public: true
+
+  doctrine.orm.entity_manager:
+    alias: Doctrine\ORM\EntityManager
+    public: true
+
   Anunde\Tests\:
     resource: '../../../tests'
 

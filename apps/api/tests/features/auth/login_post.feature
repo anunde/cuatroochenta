@@ -3,6 +3,10 @@ Feature: Login user
   As a common user
   I want to generate a JWT token
 
+Background:
+  Given there is a user:
+    | email             | password |
+    | user@user.com     | 12345678 |
   Scenario: Generate a JWT token
     Given I send a POST request to "api/v1/auth/login" with body:
     """

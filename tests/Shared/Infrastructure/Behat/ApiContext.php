@@ -4,22 +4,37 @@ declare(strict_types=1);
 
 namespace Anunde\Tests\Shared\Infrastructure\Behat;
 
+use Anunde\Api\User\Domain\Repository\IUserRepository;
+use Anunde\Api\User\Domain\Service\IPasswordEncoder;
+use Anunde\Tests\Api\User\Domain\UserEmailMother;
+use Anunde\Tests\Api\User\Domain\UserMother;
+use Anunde\Tests\Api\User\Domain\UserPasswordMother;
 use Anunde\Tests\Shared\Infrastructure\Mink\MinkHelper;
 use Anunde\Tests\Shared\Infrastructure\Mink\MinkSessionRequestHelper;
+use Behat\Behat\Hook\Scope\AfterScenarioScope;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Session;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 
 final class ApiContext extends RawMinkContext
 {
 	private readonly MinkHelper $sessionHelper;
 	private readonly MinkSessionRequestHelper $request;
+	private readonly IUserRepository $repository;
+	private readonly IPasswordEncoder $passwordEncoder;
+	private readonly EntityManagerInterface $entityManager;
 
-	public function __construct(private readonly Session $minkSession)
+	public function __construct(private readonly Session $minkSession, IUserRepository $repository, IPasswordEncoder $passwordEncoder, EntityManagerInterface $entityManager)
 	{
 		$this->sessionHelper = new MinkHelper($this->minkSession);
 		$this->request = new MinkSessionRequestHelper(new MinkHelper($minkSession));
+		$this->repository = $repository;
+		$this->passwordEncoder = $passwordEncoder;
+		$this->entityManager = $entityManager;
 	}
 
 	/**
@@ -37,6 +52,23 @@ final class ApiContext extends RawMinkContext
 	{
 		$this->request->sendRequestWithPyStringNode($method, $this->locatePath($url), $body);
 	}
+
+	/**
+	 * @Given there is a user:
+	 */
+	public function thereIsAUser(TableNode $table): void
+    {
+		$data = $table->getHash()[0];
+		$user = UserMother::create(
+			null,
+			null,
+			null,
+			UserEmailMother::create($data['email']),
+			UserPasswordMother::create($this->passwordEncoder->encode($data['password'])),
+		);
+
+        $this->repository->save($user);
+    }
 
 	/**
 	 * @Then the response content should be:
@@ -105,4 +137,16 @@ final class ApiContext extends RawMinkContext
 	{
 		return json_encode(json_decode(trim($output), true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR);
 	}
+
+	/** @BeforeScenario */
+    public function beginTransaction(BeforeScenarioScope $scope)
+    {
+        $this->entityManager->getConnection()->beginTransaction();
+    }
+
+    /** @AfterScenario */
+    public function rollbackTransaction(AfterScenarioScope $scope)
+    {
+        $this->entityManager->getConnection()->rollBack();
+    }
 }
