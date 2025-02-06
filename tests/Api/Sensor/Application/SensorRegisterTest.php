@@ -3,6 +3,7 @@
 namespace Anunde\Tests\Api\Sensor\Application;
 
 use Anunde\Api\Sensor\Application\SensorRegister\SensorRegister;
+use Anunde\Api\Sensor\Domain\SensorAlreadyExistsException;
 use Anunde\Tests\Api\Sensor\Application\SensorRegisterRequestMother;
 use Anunde\Tests\Api\Sensor\Domain\SensorMother;
 use Anunde\Tests\Api\Sensor\SensorModuleUnitTestCase;
@@ -29,4 +30,15 @@ final class SensorRegisterTest extends SensorModuleUnitTestCase
         
         $this->handler->__invoke($request);
     }
+
+    #[Test]
+    public function it_should_throw_an_error_when_sensor_already_exists(): void
+    {
+        $this->expectException(SensorAlreadyExistsException::class);
+        $sensor = SensorMother::create();
+        $request = SensorRegisterRequestMother::create($sensor->getId(), $sensor->getName());
+
+        $this->shouldSearch($sensor->getName(), $sensor);
+        $this->handler->__invoke($request);
+    }   
 }
