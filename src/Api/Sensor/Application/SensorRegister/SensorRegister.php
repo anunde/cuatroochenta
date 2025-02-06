@@ -16,7 +16,6 @@ final class SensorRegister
 
   public function __invoke(SensorRegisterRequest $command): void
   {
-    dd('aqui llega');
     $this->ensureSensorDoesNotExist(new SensorName($command->getName()));
 
     $sensor = Sensor::create(

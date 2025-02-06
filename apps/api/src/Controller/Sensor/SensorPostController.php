@@ -17,7 +17,6 @@ final class SensorPostController {
 
     public function __invoke(Request $request): Response
     {
-        dd('aqui llega');
         $this->handler->__invoke(
             new SensorRegisterRequest(
                 RequestService::getField($request, "id"),

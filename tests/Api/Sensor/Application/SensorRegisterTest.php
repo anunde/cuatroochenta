@@ -26,6 +26,7 @@ final class SensorRegisterTest extends SensorModuleUnitTestCase
         $sensor = SensorMother::create();
         $request = SensorRegisterRequestMother::create($sensor->getId(), $sensor->getName());
         
+        $this->shouldNotSearch($sensor->getName());
         $this->shouldSave($sensor);
         
         $this->handler->__invoke($request);

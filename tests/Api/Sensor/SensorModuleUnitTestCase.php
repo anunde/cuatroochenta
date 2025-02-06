@@ -30,6 +30,15 @@ abstract class SensorModuleUnitTestCase extends UnitTestCase
             ->andReturn($sensor);
     }
 
+    protected function shouldNotSearch(SensorName $name): void
+    {
+        $this->repository()
+            ->shouldReceive('findSensorByName')
+            ->with($this->similarTo($name))
+            ->once()
+            ->andReturnNull();
+    }
+
     protected function repository(): SensorRepository | MockInterface
     {
         return $this->repository ??= $this->mock(SensorRepository::class);
